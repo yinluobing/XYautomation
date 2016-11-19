@@ -1,0 +1,220 @@
+@images: "../../images";
+.round(@radius:5px;) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.container {
+    background: #FFFFFF;
+}
+
+.hd {
+    margin-left: 45%;
+}
+
+.hd li {
+    float: left;
+    margin-right: 0.3em;
+    width: 0.6em;
+    height: 0.6em;
+    text-indent: -9999px;
+    border-radius: 50%;
+    background: #a3a3a3;
+}
+
+.hd li.on {
+    background: #dbb375;
+}
+
+.container {
+    .btn {
+        width: 80%;
+        margin: 0 10%;
+        height: 2.5em;
+        line-height: 2.5em;
+        background: #dbb375;
+        text-align: center;
+        font-size: 30/24em;
+        color: #fff;
+        border-radius: 0.3em;
+    }
+    .t {
+        fieldset {
+            .img {
+                text-align: center
+            }
+            margin: 0 3.125%;
+            border-color: #dbb375;
+            legend {
+                text-align: center;
+                font-size: 34/24em;
+                color: #dbb375;
+            }
+            p {
+                padding: 1%;
+                color: #ffffff;
+            }
+        }
+    }
+}
+
+.box1 {
+    .t {
+        background: url("@{images}/bns_05.jpg") center center no-repeat;
+        h3 {
+            color: #755804;
+            background-size: 100% 100%;
+            font-size: 34/24em;
+            text-align: center;
+        }
+    }
+    ul {
+        margin: 0 3.125%;
+        li {
+            margin-top: 20/24em;
+            width: (178/640)*100%;
+            float: left;
+            text-align: center;
+            .item {
+                padding: 1%;
+                font-size: 26/24em;
+                color: #333333;
+                background: #f9f2dd;
+                border: 1px dotted #c7ab59;
+            }
+            &:nth-child(2), &:nth-child(5) {
+                margin-left: 7%;
+                margin-right: 7%;
+            }
+        }
+    }
+}
+
+.box2 {
+    background: #000000;
+    .listimg {
+        position: relative;
+    }
+    .btn {
+        position: relative;
+        margin-top: -4em;
+    }
+}
+
+.box3 {
+    .t {
+        fieldset {
+            legend {
+                color: #755804;
+            }
+            p {
+                color: #333333;
+            }
+        }
+    }
+    .listimg {
+        padding: 0 3.125%;
+        img{width:50%;float:left;}
+    }
+}
+
+.box4 {
+    background: #000000;
+    .bd{
+        cursor: pointer;
+    }
+    .hd{
+        margin-top:2%;
+        margin-bottom:2%;
+        height:1em;
+        cursor: pointer;
+        li{
+            background:#dbb375;
+        }
+        li.on{
+            width: 0.55em;
+            height: 0.55em;
+            border:1px solid #dbb375;
+            background:none;
+        }
+    }
+}
+
+.box5 {
+    .t {
+        fieldset {
+            legend {
+                color: #755804;
+            }
+        }
+    }
+    ul {
+        margin: 2% 10%;
+        li {
+            float: left;
+            width: 47.5%;
+            &:nth-child(2), &:nth-child(4) {
+                margin-left: 5%;
+            }
+            margin-bottom: 3%;
+            p {
+                padding: 2% 0 2% 2%;
+                background: #dbb375;
+                span {
+                    display: inline-block;
+                    width: 1.5em;
+                    height: 1.5em;
+                    line-height: 1.5em;
+                    border-radius: 50%;
+                    text-align: center;
+                    background: #af8544;
+                }
+            }
+        }
+    }
+}
+
+.box6 {
+    background: #000000;
+}
+
+.box7 {
+    .t {
+        fieldset {
+            legend {
+                color: #755804;
+            }
+        }
+    }
+    ul {
+        margin: 0 3.125%;
+        li {
+            width: 48%;
+            float: left;
+            margin-bottom:4%;
+            fieldset {
+                margin: 0 3.125%;
+                border-color: #836b46;
+                legend {
+                    z-index: 3;
+                    position: relative;
+                    width: 80%;
+                    background: #836b46;
+                    padding: 1%;
+                    text-align: center;
+                    font-size: 32/24em;
+                    color: #ffffff;
+                }
+                p {
+                    text-align: center;
+                    color: #836b46;
+                    font-size: 20/24em;
+                }
+                img {
+                    margin-top: -1em;
+                }
+            }
+        }
+    }
+}

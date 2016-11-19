@@ -1,0 +1,60 @@
+@images: "../../images";
+.round(@radius:5px;) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.container {
+    background: #FFFFFF;
+}
+
+.hd {
+    margin-left: 45%;
+}
+
+.hd li {
+    float: left;
+    margin-right: 0.3em;
+    width: 0.6em;
+    height: 0.6em;
+    text-indent: -9999px;
+    border-radius: 50%;
+    background: #a3a3a3;
+}
+
+.hd li.on {
+    background: #dbb375;
+}
+
+.container {
+    .btn {
+        width: 80%;
+        margin: 0 10%;
+        height: 2.5em;
+        line-height: 2.5em;
+        background: #dbb375;
+        text-align: center;
+        font-size: 30/24em;
+        color: #fff;
+        border-radius: 0.3em;
+    }
+    .t {
+        fieldset {
+            .img {
+                text-align: center
+            }
+            margin: 0 3.125%;
+            border-color: #dbb375;
+            legend {
+                text-align: center;
+                font-size: 34/24em;
+                color: #dbb375;
+            }
+            p {
+                padding: 1%;
+                color: #ffffff;
+            }
+        }
+    }
+}
