@@ -18,6 +18,7 @@
 /*global module:false*/
 module.exports = function (grunt) {
     'use strict';
+    require('time-grunt')(grunt);
     var config = grunt.file.readJSON('config.json');
     var date = new Date();
     var time = {
@@ -26,29 +27,7 @@ module.exports = function (grunt) {
         day: date.getDate()
     };
     var appPath =config.App_path ? config.App_path : config.Project_path + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.App_name;
-
-    /*creat App Path*/
-    var fs = require("fs");
-    var node_path = require("path");
-
-    //create dir function
-    function mkdirsSync(dirname, mode) {
-        if (fs.existsSync(dirname)) {
-            grunt.log.writeln('project directory already!')
-            return true;
-        } else {
-            if (mkdirsSync(node_path.dirname(dirname), mode)) {
-                fs.mkdirSync(dirname, mode);
-                grunt.log.writeln('project directory creation success!')
-                return true;
-            }
-        }
-    }
-    mkdirsSync(appPath);
-    /*creat App Path end*/
-
-    // grunt execution time
-    require('time-grunt')(grunt);
+    grunt.file.mkdir(appPath);
     grunt.initConfig({
         config: config,
         path: appPath,

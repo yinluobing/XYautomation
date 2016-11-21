@@ -8,21 +8,21 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/lib/jquery-1.11.2.min.js"></script>
-    <script src="js/lib/jquery/TouchSlide.1.1.source.js"></script>
+    <script src="js/lib/jquery-1.8.3.js"></script>
+    <script src="js/lib/jquery/jquery.SuperSlide.2.1.1.js"></script>
 </head>
 <script>
     /*swt*/
-    function swt(a) {
+    function chat(a) {
         openZoosUrl('chatwin', '&e=' + a);
         return false;
     }
     $(document).ready(function () {
         $('.container .btn').click(function () {
-            swt('bns');
+            chat('专题名称');
         })
         $('.container .btnsp').click(function () {
-            swt('bns');
+            chat('专题名称');
         })
     })
 </script>
