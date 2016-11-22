@@ -26,7 +26,7 @@ module.exports = function (grunt) {
         month: date.getMonth() + 1,
         day: date.getDate()
     };
-    var appPath =config.App_path ? config.App_path : config.Project_path + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.App_name;
+    var appPath = config.isEdit ? config.Edit_path : config.Project_path + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.App_name;
     grunt.file.mkdir(appPath);
     grunt.initConfig({
         config: config,
@@ -93,11 +93,19 @@ module.exports = function (grunt) {
                 //browers:['aliases']
                 //browsers:['last 2 versions','chrome','ie 8', 'ie 9','moz'],
             },
-            css: {
+            lesscss: {
                 expand: true,
                 flatten: true,
                 src: '<%=path%>css/less/**/*.css',
                 dest: '<%=path%>css/less/',
+                ext:'.css',
+            },
+            css:{
+                expand: true,
+                flatten: true,
+                src: '<%=path%>css/*.css',
+                dest: '<%=path%>css/',
+                ext:'.css',
             }
         },
         cssmin: {
@@ -118,7 +126,7 @@ module.exports = function (grunt) {
                 expand: true,
                 cwd: '<%=path%>',
                 src: ['css/*.css'],
-                dest: 'css/',
+                dest: '<%=path%>css/',
                 ext: '.css'
             }
         },
@@ -207,8 +215,8 @@ module.exports = function (grunt) {
                     event: ['changed', 'added'],
                     livereload: 35888
                 },
-                files: ['<%=path%>css/*.css'],
-                tasks: ['autoprefixer', 'concat:css','csscomb','cssmin']
+                files: ['<%=path%>css/**/*.css'],
+                tasks: ['autoprefixer:css', 'csscomb']
             },
             less: {
                 options: {
@@ -216,13 +224,13 @@ module.exports = function (grunt) {
                     livereload: 35888
                 },
                 files: ['<%=path%>css/less/**/*.less'],
-                tasks: ['less', 'autoprefixer', 'concat:css','csscomb','cssmin']
+                tasks: ['less', 'autoprefixer:lesscss', 'concat:css','csscomb','cssmin']
             },
             js: {
                 options: {
                     livereload: 35888
                 },
-                files: ['<%=path%>js/*.js'],
+                files: ['<%=path%>js/**/*.js'],
                 //tasks: ['concat:js', 'uglify:minjs']
             },
             html: {
@@ -248,10 +256,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-csscomb');
     // 定义默认任务
-    grunt.registerTask('initp',['copy:pc','copy:img']);
-    grunt.registerTask('initm',['copy:m','copy:img']);
-    grunt.registerTask('default', ['connect', 'watch']);
-    grunt.registerTask('edit', ['connect', 'watch:css']);
+    if(config.isEdit){
+        grunt.registerTask('default', ['connect', 'watch']);
+    }else {
+        if(config.isPc){
+            grunt.registerTask('default', ['copy:pc','copy:img','connect', 'watch']);
+        }else{
+            grunt.registerTask('default', ['copy:m','copy:img','connect', 'watch']);
+        }
+    }
     grunt.registerTask('css', ['concat:css', 'cssmin']);
     grunt.registerTask('dev', ['csslint', 'jshint']);
     grunt.registerTask('dest', ['imagemin', 'concat:css', 'cssmin', 'uglify:minjs']);
