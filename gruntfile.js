@@ -124,8 +124,8 @@ module.exports = function (grunt) {
         csscomb:{
             files: {
                 expand: true,
-                cwd: '<%=path%>',
-                src: ['css/*.css'],
+                cwd: '<%=path%>css/',
+                src: ['*.css'],
                 dest: '<%=path%>css/',
                 ext: '.css'
             }
@@ -166,9 +166,9 @@ module.exports = function (grunt) {
         less: {
             files: {
                 expand: true,
-                cwd: '<%=path%>css/less/',
+                cwd: '<%=path%>css/',
                 src: ['**/*.less'],
-                dest: '<%=path%>css/less/',
+                dest: '<%=path%>css/',
                 ext: '.css'
             }
         },
@@ -223,8 +223,8 @@ module.exports = function (grunt) {
                     event: ['changed', 'added'],
                     livereload: 35888
                 },
-                files: ['<%=path%>css/less/**/*.less'],
-                tasks: ['less', 'autoprefixer:lesscss', 'concat:css','csscomb','cssmin']
+                files: ['<%=path%>css/**/*.less'],
+                tasks: ['less', 'autoprefixer:lesscss','csscomb']
             },
             js: {
                 options: {
