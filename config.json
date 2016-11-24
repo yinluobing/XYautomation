@@ -1,10 +1,10 @@
 {
   "isEdit":true,
   "isPc":false,
-  "Project_path": "zt",
+  "Project_path": "../work/zt",
   "App_name": "mfvl1121/",
   "Tpl_pc":"tpl/html/pc/",
   "Tpl_m":"tpl/html/m/",
   "Img_path":"C:/Users/Administrator/Desktop/images/",
-  "Edit_path":"C:/Users/Administrator/Desktop/work/markDownEdit/MarkDownEditor/"
+  "Edit_path":"C:/Users/Administrator/Desktop/admin/admin-jy/"
 }

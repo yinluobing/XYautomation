@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         year: date.getFullYear(),
         month: date.getMonth() + 1,
         day: date.getDate()
-    };
+    };    
     var appPath = config.isEdit ? config.Edit_path : config.Project_path + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.App_name;
     grunt.file.mkdir(appPath);
     grunt.initConfig({
@@ -257,8 +257,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-csscomb');
     // 定义默认任务
     if(config.isEdit){
+		grunt.log.writeln("This is Edit model;");
         grunt.registerTask('default', ['connect', 'watch']);
     }else {
+		grunt.log.writeln("This is develop;");
         if(config.isPc){
             grunt.registerTask('default', ['copy:pc','copy:img','connect', 'watch']);
         }else{
