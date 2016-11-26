@@ -1,2 +1,5 @@
 #忽略文件
 /node_modules/
+/tpl/pc/js/common.js
+/tpl/m/js/common.js
+/.idea/

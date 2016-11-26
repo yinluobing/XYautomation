@@ -1,10 +1,10 @@
 {
   "isEdit":true,
   "isPc":false,
-  "Project_path": "../work/zt",
-  "App_name": "mfvl1121/",
+  "Project_path": "../work/",
+  "App_name": "App_name/",
   "Tpl_pc":"tpl/html/pc/",
   "Tpl_m":"tpl/html/m/",
   "Img_path":"C:/Users/Administrator/Desktop/images/",
-  "Edit_path":"C:/Users/Administrator/Desktop/admin/admin-jy/"
+  "Edit_path":"C:/work_path/"
 }
