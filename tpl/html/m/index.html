@@ -2,15 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>m模板</title>
-    <meta name="keywords" content="m模板"/>
-    <meta name="description" content="m模板"/>
+    <title>专题名称-艺星整形医院</title>
+    <meta name="keywords" content="专题名称-艺星整形医院"/>
+    <meta name="description" content="专题名称-艺星整形医院"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/lib/jquery-1.11.2.min.js"></script>
     <script src="js/lib/jquery/TouchSlide.1.1.source.js"></script>
 </head>
+<script>
+    /*swt*/
+    function chat(a) {
+        openZoosUrl('chatwin', '&e=' + a);
+        return false;
+    }
+    $(document).ready(function () {
+        $('.container .btn').click(function () {
+            chat('bns');
+        })
+        $('.container .btnsp').click(function () {
+            chat('bns');
+        })
+    })
+</script>
 <body>
 <!-- header -->
 

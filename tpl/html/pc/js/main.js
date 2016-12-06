@@ -19,7 +19,7 @@ require.config({
     },
     shim:{
         jquery:{
-            exprots:'',
+			exports:'jQuery'
         },
         SuperSlide:['jquery'],
         TouchSlide:['jquery'],
@@ -30,9 +30,11 @@ require.config({
     }
 })
 require(['TouchSlide','common','animation'],function () {
-    console.log(jQuery);
+    console.log($);
     // console.log(WOW.prototype);
-
+	exports.$ = function(){
+		return $;
+	};
     //SuperSlide usage
     //jQuery(".doctor").slide({mainCell: ".bd ul",titCell: ".bd ul", prevCell: ".prev", nextCell: ".next", autoPage: false, effect: "left", autoPlay: true, vis: 1 });
 

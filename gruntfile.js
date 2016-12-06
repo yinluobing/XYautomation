@@ -49,7 +49,13 @@ module.exports = function (grunt) {
                 cwd:'<%=config.Img_path%>',
                 src: '**/*',
                 dest:'<%=path%>images/',
-            }
+            },
+			lesscss:{
+				expand:true,
+                cwd:'<%=path%>/css/less/',
+                src: '*.css',
+                dest:'<%=path%>/css',
+			}
         },
         clean:{
             css:{
@@ -166,9 +172,9 @@ module.exports = function (grunt) {
         less: {
             files: {
                 expand: true,
-                cwd: '<%=path%>css/',
-                src: ['**/*.less'],
-                dest: '<%=path%>css/',
+                cwd: '<%=path%>',
+                src: ['css/**/*.less'],
+                dest: '<%=path%>',
                 ext: '.css'
             }
         },
@@ -203,7 +209,7 @@ module.exports = function (grunt) {
         watch: {
             /* 监控文件变化并执行相应任务 */
             img: {
-                files: ['<%=path%>images/**/*.{png,jpg,jpeg}'],
+                files: ['<%=path%>**/*.{png,jpg,jpeg}'],
                 options: {
                     event: ['changed', 'added'],
                     livereload: 35888
@@ -216,21 +222,21 @@ module.exports = function (grunt) {
                     livereload: 35888
                 },
                 files: ['<%=path%>css/**/*.css'],
-                tasks: ['autoprefixer:css', 'csscomb']
+                //tasks: ['autoprefixer:css', 'csscomb']
             },
             less: {
                 options: {
                     event: ['changed', 'added'],
                     livereload: 35888
                 },
-                files: ['<%=path%>css/**/*.less'],
-                tasks: ['less', 'autoprefixer:lesscss','csscomb']
+                files: ['<%=path%>**/*.less'],
+                tasks: ['less','copy:lesscss']
             },
             js: {
                 options: {
                     livereload: 35888
                 },
-                files: ['<%=path%>js/**/*.js'],
+                files: ['<%=path%>**/*.js'],
                 //tasks: ['concat:js', 'uglify:minjs']
             },
             html: {
@@ -260,7 +266,7 @@ module.exports = function (grunt) {
 		grunt.log.writeln("This is Edit model;");
         grunt.registerTask('default', ['connect', 'watch']);
     }else {
-		grunt.log.writeln("This is develop;");
+		grunt.log.writeln("This is develop model;");
         if(config.isPc){
             grunt.registerTask('default', ['copy:pc','copy:img','connect', 'watch']);
         }else{

@@ -9,6 +9,38 @@
     background: #FFFFFF;
 }
 
+.animation_up, .animation_right, .animation_down, .animation_left{
+  -webkit-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+.animation_up:hover {
+  -webkit-transform: translate(0px, -5px);
+  -moz-transform: translate(0px, -5px);
+  -o-transform: translate(0px, -5px);
+  transform: translate(0px, -5px);
+}
+
+.animation_right:hover {
+  -webkit-transform: translate(5px, 0px);
+  -moz-transform: translate(5px, 0px);
+  -o-transform: translate(5px, 0px);
+  transform: translate(5px, 0px);
+}
+
+.animation_down:hover {
+  -webkit-transform: translate(0px, 5px);
+  -moz-transform: translate(0px, 5px);
+  -o-transform: translate(0px, 5px);
+  transform: translate(0px, 5px);
+}
+.animation_left:hover {
+  -webkit-transform: translate(-5px, 0px);
+  -moz-transform: translate(-5px, 0px);
+  -o-transform: translate(-5px, 0px);
+  transform: translate(-5px, 0px);
+}
 .hd {
     margin-left: 45%;
 }
