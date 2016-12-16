@@ -1,10 +1,10 @@
 {
   "isEdit":false,
-  "isPc":false,
+  "isPc":true,
   "Project_path": "../work/zt/",
-  "App_name": "201612hd/",
+  "App_name": "201612bns/",
   "Tpl_pc":"tpl/html/pc/",
   "Tpl_m":"tpl/html/m/",
   "Img_path":"C:/Users/Administrator/Desktop/images/",
-  "Edit_path":"C:/Users/Administrator/Desktop/work/zt/2016/12/4/201612hd/"
-}
+  "Edit_path":"C:/Users/Administrator/Desktop/uimaker/"
+}	

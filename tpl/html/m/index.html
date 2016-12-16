@@ -13,19 +13,29 @@
     <script src="js/lib/jquery/TouchSlide.1.1.source.js"></script>
 </head>
 <script>
-    /*swt*/
+    /*chat*/
     function chat(a) {
-        openZoosUrl('chatwin', '&e=' + a);
-        return false;
+        if (typeof(openZoosUrl) != 'undefined') {
+            openZoosUrl('chatwin', '&e=' + a)
+            return true;
+        } else if (typeof(KS) != 'undefined') {
+            KS.openChatWin(a);
+            return true;
+        } else {
+            console.log('商务通没有加载!\n或者快商通没有加载!');
+            return false;
+        }
     }
     $(document).ready(function () {
         $('.container .btn').click(function () {
-            chat('bns');
-        })
+            chat('zt');
+        });
+
         $('.container .btnsp').click(function () {
-            chat('bns');
-        })
+            chat('zt');
+        });
     })
+
 </script>
 <body>
 <!-- header -->
