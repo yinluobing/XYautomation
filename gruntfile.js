@@ -3,16 +3,16 @@
  ***tpl默认目录结构
  + index.html
  - js
-    -lib
-         +alllib ... ...
-         +common.js
+ -lib
+ +alllib ... ...
+ +common.js
  - css
-    -less
-        +style.less
-        +common.less
-        +style.css
-        +style.min.css
-    +style.css
+ -less
+ +style.less
+ +common.less
+ +style.css
+ +style.min.css
+ +style.css
  ***************************/
 
 /*global module:false*/
@@ -25,51 +25,87 @@ module.exports = function (grunt) {
         year: date.getFullYear(),
         month: date.getMonth() + 1,
         day: date.getDate()
-    };    
-    var appPath = config.isEdit ? config.Edit_path : config.Project_path + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.App_name;
+    };
+    var appPath = config.isEdit ? config.pathEdit : config.pathProject + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.pathApp;
     grunt.file.mkdir(appPath);
     grunt.initConfig({
         config: config,
         path: appPath,
+        pathBuild: appPath + config.pathBuild,
         copy: {
-            pc:{
+            pc: {
                 expand: true,
-                cwd:'<%=config.Tpl_pc%>',
-                src: '**/*',
-                dest:'<%=path%>',
+                cwd: '<%=config.pathTplpc%>',
+                src: '**/*  ',
+                dest: '<%=path%>',
             },
-            m:{
+            m: {
                 expand: true,
-                cwd:'<%=config.Tpl_m%>',
+                cwd: '<%=config.pathTplm%>',
                 src: '**/*',
-                dest:'<%=path%>',
+                dest: '<%=path%>',
             },
-            img:{
+            img: {
                 expand: true,
-                cwd:'<%=config.Img_path%>',
+                cwd: '<%=config.pathImg%>',
                 src: '**/*',
-                dest:'<%=path%>images/',
+                dest: '<%=path%>images/',
             },
-			lesscss:{
-				expand:true,
-                cwd:'<%=path%>/css/less/',
+            buildimg: {
+                expand: true,
+                cwd: '<%=path%>images/',
+                src: '**/*',
+                dest: '<%=pathBuild%>images/',
+            },
+            buildjs: {
+                expand: true,
+                cwd: '<%=path%>js/',
+                src: ['**/*', '!/*.js'],
+                dest: '<%=pathBuild%>js/',
+            },
+            buildhtml: {
+                expand: true,
+                cwd: '<%=path%>',
+                src: '*.html',
+                dest: '<%=pathBuild%>',
+            },
+            lesscss: {
+                expand: true,
+                cwd: '<%=path%>/css/less/',
                 src: '*.css',
-                dest:'<%=path%>/css',
-			}
+                dest: '<%=path%>/css',
+            }
         },
-        clean:{
-            css:{
-                expand: true,
-                cwd:'<%=path%>',
-                src: ['css/**/*.css','!css/style.min.css'],
+        rev: {
+            options: {
+                encoding: 'utf8',
+                algorithm: 'md5',
+                length: 8
             },
-            app:{
+            build: {
+                files: [{
+                    src: [
+                        '<%=pathBuild%>fonts/**/*.{eot,svg,ttf,woff}',
+                        '<%=pathBuild%>js/*.js',
+                        '<%=pathBuild%>css/*.css'
+                    ]
+                }]
+            }
+        },
+        clean: {
+            css: {
                 expand: true,
-                cwd:'<%=path%>',
+                cwd: '<%=path%>',
+                src: ['css/**/*.css', '!css/style.min.css'],
+            },
+            app: {
+                expand: true,
+                cwd: '<%=path%>',
                 src: '**/*',
             },
         },
         connect: {
+
             options: {
                 port: 9000,
                 hostname: '*', //默认就是这个值，可配置为本机某个 IP，localhost 或域名
@@ -96,22 +132,15 @@ module.exports = function (grunt) {
         },
         autoprefixer: {
             options: {
-                //browers:['aliases']
+                browers: ['aliases']
                 //browsers:['last 2 versions','chrome','ie 8', 'ie 9','moz'],
             },
-            lesscss: {
+            css: {
                 expand: true,
-                flatten: true,
-                src: '<%=path%>css/less/**/*.css',
-                dest: '<%=path%>css/less/',
-                ext:'.css',
-            },
-            css:{
-                expand: true,
-                flatten: true,
-                src: '<%=path%>css/*.css',
-                dest: '<%=path%>css/',
-                ext:'.css',
+                cwd: '<%=path%>',
+                src: 'css/**/*.css',
+                dest: '<%=path%>',
+                ext: '.css',
             }
         },
         cssmin: {
@@ -121,18 +150,18 @@ module.exports = function (grunt) {
             },
             min: {
                 expand: true,
-                cwd: '<%=path%>css/',
-                src: ['style.css'],
-                dest: '<%=path%>css/',
-                ext: '.min.css'
+                cwd: '<%=path%>',
+                src: 'css/**/*.css',
+                dest: '<%=path%>',
+                ext: '.css'
             }
         },
-        csscomb:{
+        csscomb: {
             files: {
                 expand: true,
-                cwd: '<%=path%>css/',
-                src: ['*.css'],
-                dest: '<%=path%>css/',
+                cwd: '<%=path%>',
+                src: 'css/**/*.css',
+                dest: '<%=path%>',
                 ext: '.css'
             }
         },
@@ -142,16 +171,16 @@ module.exports = function (grunt) {
         },
         imagemin: {
             /* 压缩优化图片大小 */
-            dist: {
+            dist:{
                 options: {
-                    optimizationLevel: 3
+                    optimizationLevel: 7
                 },
                 files: [
                     {
                         expand: true,
                         cwd: '<%=path%>images/',
                         src: ['**/*.{png,jpg,jpeg}'], // 优化 img 目录下所有 png/jpg/jpeg 图片
-                        dest: '<%=path%>images/' // 优化后的图片保存位置，默认覆盖
+                        dest: '<%=pathBuild%>images/' // 优化后的图片保存位置，默认覆盖
                     }
                 ]
             }
@@ -159,21 +188,20 @@ module.exports = function (grunt) {
         concat: {
             /* 合并 CSS 文件 */
             css: {
-                src: ['<%=path%>css/less/*.css'],
-                /* 根据目录下文件情况配置 */
-                dest: '<%=path%>css/style.css'
+                src: ['<%=path%>css/*.css'],
+                dest: '<%=pathBuild%>css/style.css',
             },
             js: {
                 src: ['<%=path%>js/*.js'],
                 /* 根据目录下文件情况配置 如果可以使用 require.js/LABjs 等配置更佳 */
-                dest: '<%=path%>js/main.js'
+                dest: '<%=path%>js/concat.js'
             }
         },
         less: {
             files: {
                 expand: true,
                 cwd: '<%=path%>',
-                src: ['css/**/*.less'],
+                src: 'css/**/*.less',
                 dest: '<%=path%>',
                 ext: '.css'
             }
@@ -190,20 +218,35 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '<%=path%>js/',
                     src: ['*.js', '!**/*.min.js'],
-                    dest: '<%=path%>js/',
-                    ext: '.min.js'
+                    dest: '<%=pathBuild%>js/',
+                    ext: '.js'
                 }]
             }
         },
-        newer: {
+        // 处理html中css、js 引入合并问题
+        usemin: {
+            html: 'dist/html/*.html'
+        },
+        //压缩HTML
+        htmlmin: {
             options: {
-                override: function(detail, include) {
-                    if (detail.task === 'less') {
-                        checkForModifiedImports(detail.path, detail.time, include);
-                    } else {
-                        include(false);
-                    }
-                }
+                removeComments: true,
+                removeCommentsFromCDATA: true,
+                collapseWhitespace: true,
+                collapseBooleanAttributes: true,
+                removeAttributeQuotes: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeOptionalTags: true
+            },
+            html: {
+                files: [{
+                    expand: true,
+                    cwd: '<%=pathBuild%>',
+                    src: ['*.html'],
+                    dest: '<%=pathBuild%>'
+                }]
             }
         },
         watch: {
@@ -214,15 +257,14 @@ module.exports = function (grunt) {
                     event: ['changed', 'added'],
                     livereload: 35888
                 },
-                tasks: ['imagemin'],
             },
             css: {
                 options: {
                     event: ['changed', 'added'],
                     livereload: 35888
                 },
-                files: ['<%=path%>css/**/*.css'],
-                //tasks: ['autoprefixer:css', 'csscomb']
+                files: ['<%=path%>less/*.css'],
+                tasks: ['newer:copy:lesscss']
             },
             less: {
                 options: {
@@ -230,14 +272,13 @@ module.exports = function (grunt) {
                     livereload: 35888
                 },
                 files: ['<%=path%>**/*.less'],
-                tasks: ['less','copy:lesscss']
+                tasks: ['newer:less']
             },
             js: {
                 options: {
                     livereload: 35888
                 },
                 files: ['<%=path%>**/*.js'],
-                //tasks: ['concat:js', 'uglify:minjs']
             },
             html: {
                 options: {
@@ -258,21 +299,32 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-rev');
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-csscomb');
     // 定义默认任务
-    if(config.isEdit){
-		grunt.log.writeln("This is Edit model;");
+    if (config.isEdit) {
+        grunt.log.writeln("This is Edit model;");
         grunt.registerTask('default', ['connect', 'watch']);
-    }else {
-		grunt.log.writeln("This is develop model;");
-        if(config.isPc){
-            grunt.registerTask('default', ['copy:pc','copy:img','connect', 'watch']);
-        }else{
-            grunt.registerTask('default', ['copy:m','copy:img','connect', 'watch']);
+    } else {
+        grunt.log.writeln("This is develop model;");
+        if (config.isPc) {
+            if (grunt.file.isDir(appPath)) {
+                grunt.registerTask('default', ['connect', 'watch']);
+            } else {
+                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect', 'watch']);
+            }
+        } else {
+            if (grunt.file.isDir(appPath)) {
+                grunt.registerTask('default', ['connect', 'watch']);
+            } else {
+                grunt.registerTask('default', ['copy:m', 'copy:img', 'connect', 'watch']);
+            }
         }
     }
+    grunt.registerTask('build', ['autoprefixer', 'csscomb', 'cssmin', 'concat:css', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs','copy:buildhtml']);
     grunt.registerTask('css', ['concat:css', 'cssmin']);
     grunt.registerTask('dev', ['csslint', 'jshint']);
     grunt.registerTask('dest', ['imagemin', 'concat:css', 'cssmin', 'uglify:minjs']);

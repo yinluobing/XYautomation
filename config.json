@@ -1,10 +1,11 @@
 {
-  "isEdit":false,
-  "isPc":true,
-  "Project_path": "../work/zt/",
-  "App_name": "201612bns/",
-  "Tpl_pc":"tpl/html/pc/",
-  "Tpl_m":"tpl/html/m/",
-  "Img_path":"C:/Users/Administrator/Desktop/images/",
-  "Edit_path":"C:/Users/Administrator/Desktop/uimaker/"
-}	
+  "isEdit":true,
+  "isPc":false,
+  "pathBuild":"build/",
+  "pathProject": "../work/zt/",
+  "pathApp": "201612rf/",
+  "pathTplpc":"tpl/html/pc/",
+  "pathTplm":"tpl/html/m/",
+  "pathImg":"C:/Users/Administrator/Desktop/images/",
+  "pathEdit":"C:/Users/Administrator/Desktop/test/"
+}
