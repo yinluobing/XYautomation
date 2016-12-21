@@ -2,6 +2,7 @@
   "isEdit":true,
   "isPc":false,
   "pathBuild":"build/",
+  "pathSrc":"src/",
   "pathProject": "../work/zt/",
   "pathApp": "201612rf/",
   "pathTplpc":"tpl/html/pc/",
