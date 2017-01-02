@@ -14,7 +14,6 @@
  +style.min.css
  +style.css
  ***************************/
-
 /*global module:false*/
 module.exports = function (grunt) {
     'use strict';
@@ -27,12 +26,25 @@ module.exports = function (grunt) {
         day: date.getDate()
     };
     var pathApp = config.isEdit ? config.pathEdit : config.pathProject + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.pathApp;
-    grunt.file.mkdir(pathApp);
+    var fs = require("fs");
+    var path = require("path");
+    function mkdirs(dirname) {
+        //console.log(dirname);
+        if (fs.existsSync(dirname)) {
+            return true;
+        } else {
+            if (mkdirs(path.dirname(dirname))) {
+                fs.mkdirSync(dirname);
+                return true;
+            }
+        }
+    }
+    mkdirs(pathApp);
     grunt.initConfig({
         config: config,
         pathApp: pathApp,
-        pathAppSrc: pathApp+config.pathSrc,
-        pathAppBuild: pathApp + config.pathBuild,
+        pathAppSrc:config.isEdit ? pathApp : pathApp+config.pathSrc,
+        pathAppBuild:config.isEdit ? pathApp : pathApp + config.pathBuild,
         copy: {
             pc: {
                 expand: true,
@@ -257,6 +269,19 @@ module.exports = function (grunt) {
                 src: ['<%=pathAppBuild%>*.html'],
             },
         },
+        shell: {
+            options: {
+                stderr: false,
+            },
+            subl: {
+                stdout: false,
+                stderr: false,
+                command:'sublime_text <%=pathAppSrc%>',
+            },
+            webs: {
+                command:'ws.bat <%=pathAppSrc%>',
+            },
+        },
         watch: {
             /* 监控文件变化并执行相应任务 */
             img: {
@@ -265,6 +290,13 @@ module.exports = function (grunt) {
                     event: ['changed', 'added'],
                     livereload: 35888
                 },
+            },
+            pathImg: {
+                files: ['<%=config.pathImg%>**/*.{png,jpg,jpeg,gif}'],
+                options: {
+                    event: ['changed', 'added'],
+                },
+                tasks: ['newer:copy:img']
             },
             css: {
                 options: {
@@ -313,23 +345,24 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-hashmap');
     grunt.loadNpmTasks('grunt-htmlurlrev');
     grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-shell');
     // 定义默认任务
     if (config.isEdit) {
         grunt.log.writeln("This is Edit model;");
-        grunt.registerTask('default', ['connect', 'watch']);
+        grunt.registerTask('default', ['connect','watch']);
     } else {
         grunt.log.writeln("This is develop model;");
         if (config.isPc) {
-            if (grunt.file.isDir(pathApp)) {
+            if (mkdirs(pathApp+'/images/')) {
                 grunt.registerTask('default', ['connect', 'watch']);
             } else {
-                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect', 'watch']);
+                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect','watch']);
             }
         } else {
-            if (grunt.file.isDir(pathApp)) {
+            if (mkdirs(pathApp+'/images/')) {
                 grunt.registerTask('default', ['connect', 'watch']);
             } else {
-                grunt.registerTask('default', ['copy:m', 'copy:img', 'connect', 'watch']);
+                grunt.registerTask('default', ['copy:m', 'copy:img', 'connect','watch']);
             }
         }
     }

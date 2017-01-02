@@ -1,12 +1,12 @@
-{
-  "isEdit":true,
-  "isPc":false,
-  "pathBuild":"build/",
-  "pathSrc":"src/",
+  {
+  "isEdit"     :false,
+  "isPc"       :true,
+  "pathBuild"  :"build/",
+  "pathSrc"    :"src/",
   "pathProject": "../work/zt/",
-  "pathApp": "201612rf/",
-  "pathTplpc":"tpl/html/pc/",
-  "pathTplm":"tpl/html/m/",
-  "pathImg":"C:/Users/Administrator/Desktop/images/",
-  "pathEdit":"C:/Users/Administrator/Desktop/test/"
-}
+  "pathApp"    : "201701hd/",
+  "pathTplpc"  :"tpl/html/pc/",
+  "pathTplm"   :"tpl/html/m/",
+  "pathImg"    :"C:/Users/Administrator/Desktop/images/",
+  "pathEdit"   :"C:/Users/Administrator/Desktop/work/zt/2016/12/30/201701hd/src/"
+  }
