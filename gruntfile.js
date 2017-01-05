@@ -25,9 +25,10 @@ module.exports = function (grunt) {
         month: date.getMonth() + 1,
         day: date.getDate()
     };
-    var pathApp = config.isEdit ? config.pathEdit : config.pathProject + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.pathApp;
+    var pathApp = config.isDev ? config.pathProject + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.pathApp : config.pathEdit;
     var fs = require("fs");
     var path = require("path");
+
     function mkdirs(dirname) {
         //console.log(dirname);
         if (fs.existsSync(dirname)) {
@@ -39,11 +40,12 @@ module.exports = function (grunt) {
             }
         }
     }
+
     grunt.initConfig({
         config: config,
         pathApp: pathApp,
-        pathAppSrc:config.isEdit ? pathApp : pathApp+config.pathSrc,
-        pathAppBuild:config.isEdit ? pathApp : pathApp + config.pathBuild,
+        pathAppSrc: config.isDev ? pathApp + config.pathSrc : pathApp,
+        pathAppBuild: config.isDev ? pathApp + config.pathBuild : pathApp,
         copy: {
             pc: {
                 expand: true,
@@ -171,7 +173,7 @@ module.exports = function (grunt) {
         },
         imagemin: {
             /* 压缩优化图片大小 */
-            dist:{
+            dist: {
                 options: {
                     optimizationLevel: 7
                 },
@@ -188,7 +190,7 @@ module.exports = function (grunt) {
         concat: {
             /* 合并 CSS 文件 */
             css: {
-                src: ['<%=pathAppSrc%>css/**/*.css','!<%=pathAppSrc%>css/style.css'],
+                src: ['<%=pathAppSrc%>css/**/*.css', '!<%=pathAppSrc%>css/style.css'],
                 dest: '<%=pathAppSrc%>css/style.css',
             },
             js: {
@@ -275,10 +277,10 @@ module.exports = function (grunt) {
             subl: {
                 stdout: false,
                 stderr: false,
-                command:'sublime_text <%=pathAppSrc%>',
+                command: 'sublime_text <%=pathAppSrc%>',
             },
             webs: {
-                command:'ws.bat <%=pathAppSrc%>',
+                command: 'ws.bat <%=pathAppSrc%>',
             },
         },
         watch: {
@@ -311,7 +313,7 @@ module.exports = function (grunt) {
                     livereload: 35888
                 },
                 files: ['<%=pathAppSrc%>**/*.less'],
-                tasks: ['newer:less','newer:autoprefixer', 'newer:csscomb', 'newer:cssmin', 'concat:css']
+                tasks: ['newer:less', 'newer:autoprefixer', 'newer:csscomb', 'newer:cssmin', 'concat:css']
             },
             js: {
                 options: {
@@ -340,37 +342,37 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-csscomb');
     grunt.loadNpmTasks('grunt-hashmap');
     grunt.loadNpmTasks('grunt-htmlurlrev');
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-shell');
     // define default tasker
-    if (config.isEdit) {
-        grunt.log.writeln("This is Edit model;");
-        grunt.registerTask('default', ['connect','watch']);
-    } else {
+    if (config.isDev) {
         grunt.log.writeln("This is develop model;");
         if (config.isPc) {
             if (mkdirs(pathApp)) {
-                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect','watch']);
+                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect', 'watch']);
             } else {
                 console.log('project already exist!');
                 grunt.registerTask('default', ['connect', 'watch']);
             }
         } else {
             if (mkdirs(pathApp)) {
-                grunt.registerTask('default', ['copy:m', 'copy:img', 'connect','watch']);
+                grunt.registerTask('default', ['copy:m', 'copy:img', 'connect', 'watch']);
             } else {
                 console.log('project already exist!');
                 grunt.registerTask('default', ['connect', 'watch']);
             }
         }
         //process.exit();
+    } else {
+        grunt.log.writeln("This is Edit model;");
+        grunt.registerTask('default', ['connect', 'watch']);
     }
-    grunt.registerTask('winBuild', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs','copy:buildhtml',/*'hashmap','htmlurlrev',*/'htmlmin']);
-    grunt.registerTask('build', ['copy:buildcss','copy:buildimg', 'copy:buildjs', 'uglify:minjs','copy:buidhtml','hashmap','htmlurlrev','htmlmin']);
+    grunt.registerTask('winBuild', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buildhtml', /*'hashmap','htmlurlrev',*/'htmlmin']);
+    grunt.registerTask('build', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buidhtml', 'hashmap', 'htmlurlrev', 'htmlmin']);
     grunt.registerTask('css', ['concat:css', 'cssmin']);
     grunt.registerTask('test', function () {
         //console.log(grunt.config.get('copy.pc.dest'));

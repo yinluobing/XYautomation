@@ -1,12 +1,12 @@
-  {
-  "isEdit"     :true,
-  "isPc"       :false,
-  "pathBuild"  :"build/",
-  "pathSrc"    :"src/",
+{
+  "isDev": true,
+  "isPc": false,
+  "pathSrc": "src/",
+  "pathBuild": "build/",
   "pathProject": "../work/zt/",
-  "pathApp"    : "201701bibu/",
-  "pathTplpc"  :"tpl/html/pc/",
-  "pathTplm"   :"tpl/html/m/",
-  "pathImg"    :"C:/Users/Administrator/Desktop/images/",
-  "pathEdit"   :"C:/Users/Administrator/Desktop/uimaker/"
-  }
+  "pathApp": "201701bibu/",
+  "pathTplpc": "tpl/html/pc/",
+  "pathTplm": "tpl/html/m/",
+  "pathImg": "C:/Users/Administrator/Desktop/images/",
+  "pathEdit": "C:/Users/Administrator/Desktop/uimaker/"
+}
