@@ -31,7 +31,7 @@ module.exports = function (grunt) {
     function mkdirs(dirname) {
         //console.log(dirname);
         if (fs.existsSync(dirname)) {
-            return true;
+            return false;
         } else {
             if (mkdirs(path.dirname(dirname))) {
                 fs.mkdirSync(dirname);
@@ -39,7 +39,6 @@ module.exports = function (grunt) {
             }
         }
     }
-    mkdirs(pathApp);
     grunt.initConfig({
         config: config,
         pathApp: pathApp,
@@ -341,30 +340,34 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-csscomb');
     grunt.loadNpmTasks('grunt-hashmap');
     grunt.loadNpmTasks('grunt-htmlurlrev');
     grunt.loadNpmTasks('grunt-newer');
     grunt.loadNpmTasks('grunt-shell');
-    // 定义默认任务
+    // define default tasker
     if (config.isEdit) {
         grunt.log.writeln("This is Edit model;");
         grunt.registerTask('default', ['connect','watch']);
     } else {
         grunt.log.writeln("This is develop model;");
         if (config.isPc) {
-            if (mkdirs(pathApp+'/images/')) {
-                grunt.registerTask('default', ['connect', 'watch']);
-            } else {
+            if (mkdirs(pathApp)) {
                 grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect','watch']);
+            } else {
+                console.log('project already exist!');
+                grunt.registerTask('default', ['connect', 'watch']);
             }
         } else {
-            if (mkdirs(pathApp+'/images/')) {
-                grunt.registerTask('default', ['connect', 'watch']);
-            } else {
+            if (mkdirs(pathApp)) {
                 grunt.registerTask('default', ['copy:m', 'copy:img', 'connect','watch']);
+            } else {
+                console.log('project already exist!');
+                grunt.registerTask('default', ['connect', 'watch']);
             }
         }
+        //process.exit();
     }
     grunt.registerTask('winBuild', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs','copy:buildhtml',/*'hashmap','htmlurlrev',*/'htmlmin']);
     grunt.registerTask('build', ['copy:buildcss','copy:buildimg', 'copy:buildjs', 'uglify:minjs','copy:buidhtml','hashmap','htmlurlrev','htmlmin']);

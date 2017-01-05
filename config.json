@@ -1,12 +1,12 @@
   {
-  "isEdit"     :false,
-  "isPc"       :true,
+  "isEdit"     :true,
+  "isPc"       :false,
   "pathBuild"  :"build/",
   "pathSrc"    :"src/",
   "pathProject": "../work/zt/",
-  "pathApp"    : "201701hd/",
+  "pathApp"    : "201701bibu/",
   "pathTplpc"  :"tpl/html/pc/",
   "pathTplm"   :"tpl/html/m/",
   "pathImg"    :"C:/Users/Administrator/Desktop/images/",
-  "pathEdit"   :"C:/Users/Administrator/Desktop/work/zt/2016/12/30/201701hd/src/"
+  "pathEdit"   :"C:/Users/Administrator/Desktop/uimaker/"
   }
