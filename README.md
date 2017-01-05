@@ -26,7 +26,7 @@ git clone https://github.com/yinluobing/grunt-tools.git
 5. 进到工具目录 然后运行命令 "npm install" 初始化下载"grunt-插件"
 ```
 ##### 3. 工具配置篇:
-```
+```javascript
 "config.josn"文件配置
   {
   "isDev"     :true,//是否是开发模式true or false(是编辑模式)
