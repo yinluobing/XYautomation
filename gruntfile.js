@@ -1,19 +1,7 @@
 /**************************
  *@BY xiaoyin
  ***tpl默认目录结构
- + index.html
- - js
- -lib
- +alllib ... ...
- +common.js
- - css
- -less
- +style.less
- +common.less
- +style.css
- +style.min.css
- +style.css
- ***************************/
+**************************/
 /*global module:false*/
 module.exports = function (grunt) {
     'use strict';
@@ -28,7 +16,6 @@ module.exports = function (grunt) {
     var pathApp = config.isDev ? config.pathProject + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.pathApp : config.pathEdit;
     var fs = require("fs");
     var path = require("path");
-
     function mkdirs(dirname) {
         //console.log(dirname);
         if (fs.existsSync(dirname)) {
@@ -40,7 +27,6 @@ module.exports = function (grunt) {
             }
         }
     }
-
     grunt.initConfig({
         config: config,
         pathApp: pathApp,
@@ -342,7 +328,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-csscomb');
     grunt.loadNpmTasks('grunt-hashmap');
     grunt.loadNpmTasks('grunt-htmlurlrev');
@@ -352,6 +337,7 @@ module.exports = function (grunt) {
     if (config.isDev) {
         grunt.log.writeln("This is develop model;");
         if (config.isPc) {
+            console.log("This is Pc project;");
             if (mkdirs(pathApp)) {
                 grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect', 'watch']);
             } else {
@@ -359,6 +345,8 @@ module.exports = function (grunt) {
                 grunt.registerTask('default', ['connect', 'watch']);
             }
         } else {
+            console.log("This is Mobile project;");
+            console.log(pathApp);
             if (mkdirs(pathApp)) {
                 grunt.registerTask('default', ['copy:m', 'copy:img', 'connect', 'watch']);
             } else {
@@ -366,7 +354,6 @@ module.exports = function (grunt) {
                 grunt.registerTask('default', ['connect', 'watch']);
             }
         }
-        //process.exit();
     } else {
         grunt.log.writeln("This is Edit model;");
         grunt.registerTask('default', ['connect', 'watch']);
