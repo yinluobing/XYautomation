@@ -19,7 +19,7 @@ module.exports = function (grunt) {
     function mkdirs(dirname) {
         //console.log(dirname);
         if (fs.existsSync(dirname)) {
-            return false;
+            return true;
         } else {
             if (mkdirs(path.dirname(dirname))) {
                 fs.mkdirSync(dirname);
@@ -189,7 +189,7 @@ module.exports = function (grunt) {
             files: {
                 expand: true,
                 cwd: '<%=pathAppSrc%>',
-                src: 'css/**/*.less',
+                src: '**/*.less',
                 dest: '<%=pathAppSrc%>',
                 ext: '.css'
             }
@@ -209,6 +209,10 @@ module.exports = function (grunt) {
                     dest: '<%=pathAppBuild%>js/',
                     ext: '.js'
                 }]
+            },
+            test:{
+                src:"C:/Users/Administrator/Desktop/test/js/posts.js",
+                dest:"C:/Users/Administrator/Desktop/test/js/posts.min.js"
             }
         },
         //压缩HTML
@@ -361,6 +365,7 @@ module.exports = function (grunt) {
     grunt.registerTask('winBuild', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buildhtml', /*'hashmap','htmlurlrev',*/'htmlmin']);
     grunt.registerTask('build', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buidhtml', 'hashmap', 'htmlurlrev', 'htmlmin']);
     grunt.registerTask('css', ['concat:css', 'cssmin']);
+    grunt.registerTask('jsmin', ['uglify:test']);
     grunt.registerTask('test', function () {
         //console.log(grunt.config.get('copy.pc.dest'));
     });
