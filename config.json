@@ -1,12 +1,12 @@
 {
-  "isDev": true,
-  "isPc": false,
+  "isDev": false,
+  "isPc": true,
   "pathSrc": "src/",
   "pathBuild": "build/",
   "pathProject": "../work/zt",
-  "pathApp": "201701zfyz/",
+  "pathApp": "201704znq/",
   "pathTplpc": "tpl/html/pc/",
   "pathTplm": "tpl/html/m/",
-  "pathImg": "C:/Users/Administrator/Desktop/images/",
-  "pathEdit": "C:/Users/Administrator/Desktop/work/zt/2017/1/12/201701chuzhou/src/"
+  "pathImg": "C:/Users/Administrator/Desktop/Folder/脱毛活动/西安三月活动/images/",
+  "pathEdit": "C:/Users/Administrator/Desktop/Folder/work/zt/2017/3/28/201704znq/src/"
 }

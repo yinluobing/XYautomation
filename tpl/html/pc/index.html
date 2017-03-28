@@ -16,12 +16,12 @@
 <![endif]-->
 <script>
     /*chat*/
-    function chat(a) {
+    function chat() {
         if ('undefined' != typeof openZoosUrl ) {
-            openZoosUrl('chatwin', '&e=' + a)
+            openZoosUrl()
             return true;
         } else if ('undefined' != typeof KS) {
-            KS.openChatWin(a);
+            KS.openChatWin();
             return true;
         } else {
             console.log('商务通没有加载!\n或者快商通没有加载!');
@@ -30,11 +30,11 @@
     }
     $(document).ready(function () {
         $('.container .btn').click(function () {
-            chat('zt');
+            chat();
         });
 
         $('.container .btnsp').click(function () {
-            chat('zt');
+            chat();
         });
     })
 
