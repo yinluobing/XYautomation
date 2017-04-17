@@ -13,7 +13,12 @@ module.exports = function (grunt) {
         month: date.getMonth() + 1,
         day: date.getDate()
     };
-    var pathApp = config.isDev ? config.pathProject + '/' + time.year + "/" + time.month + "/" + time.day + "/" + config.pathApp : config.pathEdit;
+    //time.day = 11;
+    if (time.day < 10) {
+        time.day='0'+time.day;
+    }
+    var pathApp = config.isDev ? config.pathProject + '/' + time.year + "/" + time.month + time.day + "/" + config.pathApp : config.pathEdit;
+    //process.exit();
     var fs = require("fs");
     var path = require("path");
     function mkdirs(dirname) {
@@ -267,10 +272,10 @@ module.exports = function (grunt) {
             subl: {
                 stdout: false,
                 stderr: false,
-                command: 'sublime_text <%=pathAppSrc%>',
+                command: 'RunHiddenConsole D:/Program Files (x86)/Sublime Text 3/sublime_text.exe <%=pathAppSrc%>',
             },
             webs: {
-                command: 'ws.bat <%=pathAppSrc%>',
+                command: 'RunHiddenConsole D:/Program Files (x86)/JetBrains/WebStorm 2017.1/bin/webstorm64.exe <%=pathAppSrc%>',
             },
         },
         watch: {
@@ -343,10 +348,10 @@ module.exports = function (grunt) {
         if (config.isPc) {
             console.log("This is Pc project;");
             if (mkdirs(pathApp)) {
-                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect', 'watch']);
+                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect','shell:webs','watch']);
             } else {
                 console.log('project already exist!');
-                grunt.registerTask('default', ['connect', 'watch']);
+                grunt.registerTask('default', ['connect','shell:webs', 'watch']);
             }
         } else {
             console.log("This is Mobile project;");
@@ -360,6 +365,7 @@ module.exports = function (grunt) {
         }
     } else {
         grunt.log.writeln("This is Edit model;");
+        grunt.log.writeln(pathApp);
         grunt.registerTask('default', ['connect', 'watch']);
     }
     grunt.registerTask('winBuild', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buildhtml', /*'hashmap','htmlurlrev',*/'htmlmin']);
