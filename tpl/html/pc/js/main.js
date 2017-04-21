@@ -36,7 +36,7 @@ require(['TouchSlide','common','animation'],function () {
 		return $;
 	};
     //SuperSlide usage
-    //jQuery(".doctor").slide({mainCell: ".bd ul",titCell: ".bd ul", prevCell: ".prev", nextCell: ".next", autoPage: false, effect: "left", autoPlay: true, vis: 1 });
+    //jQuery(".doctor")._slide({mainCell: ".bd ul",titCell: ".bd ul", prevCell: ".prev", nextCell: ".next", autoPage: false, effect: "left", autoPlay: true, vis: 1 });
 
     //animation WOW class="WOW bounce~ animatied"
 

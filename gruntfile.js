@@ -1,9 +1,9 @@
 /**************************
  *@BY xiaoyin
  ***tpl默认目录结构
-**************************/
+ **************************/
 /*global module:false*/
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     'use strict';
     require('time-grunt')(grunt);
     var config = grunt.file.readJSON('config.json');
@@ -15,23 +15,26 @@ module.exports = function (grunt) {
     };
     //time.day = 11;
     if (time.day < 10) {
-        time.day='0'+time.day;
+        time.day = '0' + time.day;
     }
     var pathApp = config.isDev ? config.pathProject + '/' + time.year + "/" + time.month + time.day + "/" + config.pathApp : config.pathEdit;
     //process.exit();
     var fs = require("fs");
     var path = require("path");
+    var is_dir;
     function mkdirs(dirname) {
         //console.log(dirname);
-        if (fs.existsSync(dirname)) {
-            return true;
-        } else {
+        if (!fs.existsSync(dirname)) {
             if (mkdirs(path.dirname(dirname))) {
                 fs.mkdirSync(dirname);
+                is_dir = false;
                 return true;
             }
+        } else {
+            return true;
         }
     }
+    mkdirs(pathApp);
     grunt.initConfig({
         config: config,
         pathApp: pathApp,
@@ -103,13 +106,13 @@ module.exports = function (grunt) {
             options: {
                 port: 9000,
                 hostname: '*', //默认就是这个值，可配置为本机某个 IP，localhost 或域名
-                livereload: 35888  //声明给 watch 监听的端口
+                livereload: 35888 //声明给 watch 监听的端口
             },
             server: {
                 options: {
                     open: true, //自动打开网页 http://
                     base: [
-                        '<%=pathAppSrc%>'  //主目录
+                        '<%=pathAppSrc%>' //主目录
                     ]
                 }
             }
@@ -126,7 +129,7 @@ module.exports = function (grunt) {
         autoprefixer: {
             options: {
                 browers: ['aliases']
-                //browsers:['last 2 versions','chrome','ie 8', 'ie 9','moz'],
+                    //browsers:['last 2 versions','chrome','ie 8', 'ie 9','moz'],
             },
             css: {
                 expand: true,
@@ -168,14 +171,12 @@ module.exports = function (grunt) {
                 options: {
                     optimizationLevel: 7
                 },
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%=pathAppSrc%>images/',
-                        src: ['**/*.{png,jpg,jpeg}'], // 优化 img 目录下所有 png/jpg/jpeg 图片
-                        dest: '<%=pathAppBuild%>images/' // 优化后的图片保存位置，默认覆盖
-                    }
-                ]
+                files: [{
+                    expand: true,
+                    cwd: '<%=pathAppSrc%>images/',
+                    src: ['**/*.{png,jpg,jpeg}'], // 优化 img 目录下所有 png/jpg/jpeg 图片
+                    dest: '<%=pathAppBuild%>images/' // 优化后的图片保存位置，默认覆盖
+                }]
             }
         },
         concat: {
@@ -215,9 +216,9 @@ module.exports = function (grunt) {
                     ext: '.js'
                 }]
             },
-            test:{
-                src:"C:/Users/Administrator/Desktop/test/js/posts.js",
-                dest:"C:/Users/Administrator/Desktop/test/js/posts.min.js"
+            test: {
+                src: "C:/Users/Administrator/Desktop/test/js/posts.js",
+                dest: "C:/Users/Administrator/Desktop/test/js/posts.min.js"
             }
         },
         //压缩HTML
@@ -347,20 +348,20 @@ module.exports = function (grunt) {
         grunt.log.writeln("This is develop model;");
         if (config.isPc) {
             console.log("This is Pc project;");
-            if (mkdirs(pathApp)) {
-                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect','shell:webs','watch']);
+            if (typeof is_dir != 'undefined') {
+                grunt.registerTask('default', ['copy:pc', 'copy:img', 'connect', 'shell:webs', 'watch']);
             } else {
                 console.log('project already exist!');
-                grunt.registerTask('default', ['connect','shell:webs', 'watch']);
+                grunt.registerTask('default', ['connect', 'shell:webs', 'watch']);
             }
         } else {
             console.log("This is Mobile project;");
             console.log(pathApp);
-            if (mkdirs(pathApp)) {
-                grunt.registerTask('default', ['copy:m', 'copy:img', 'connect', 'watch']);
+            if (typeof is_dir != 'undefined') {
+                grunt.registerTask('default', ['copy:m', 'copy:img', 'connect','shell:webs', 'watch']);
             } else {
                 console.log('project already exist!');
-                grunt.registerTask('default', ['connect', 'watch']);
+                grunt.registerTask('default', ['connect', 'shell:webs', 'watch']);
             }
         }
     } else {
@@ -368,11 +369,11 @@ module.exports = function (grunt) {
         grunt.log.writeln(pathApp);
         grunt.registerTask('default', ['connect', 'watch']);
     }
-    grunt.registerTask('winBuild', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buildhtml', /*'hashmap','htmlurlrev',*/'htmlmin']);
+    grunt.registerTask('winBuild', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buildhtml', /*'hashmap','htmlurlrev',*/ 'htmlmin']);
     grunt.registerTask('build', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buidhtml', 'hashmap', 'htmlurlrev', 'htmlmin']);
     grunt.registerTask('css', ['concat:css', 'cssmin']);
     grunt.registerTask('jsmin', ['uglify:test']);
-    grunt.registerTask('test', function () {
+    grunt.registerTask('test', function() {
         //console.log(grunt.config.get('copy.pc.dest'));
     });
 };
