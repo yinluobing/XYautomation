@@ -1,5 +1,5 @@
 {
-  "isDev": true,
+  "isDev": false,
   "isPc": false,
   "pathSrc": "src/",
   "pathBuild": "build/",

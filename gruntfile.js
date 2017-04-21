@@ -367,7 +367,7 @@ module.exports = function(grunt) {
     } else {
         grunt.log.writeln("This is Edit model;");
         grunt.log.writeln(pathApp);
-        grunt.registerTask('default', ['connect', 'watch']);
+        grunt.registerTask('default', ['connect','shell:webs','watch']);
     }
     grunt.registerTask('winBuild', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buildhtml', /*'hashmap','htmlurlrev',*/ 'htmlmin']);
     grunt.registerTask('build', ['copy:buildcss', 'copy:buildimg', 'copy:buildjs', 'uglify:minjs', 'copy:buidhtml', 'hashmap', 'htmlurlrev', 'htmlmin']);
