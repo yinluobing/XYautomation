@@ -1,10 +1,10 @@
 {
-  "isDev": false,
-  "isPc": false,
+  "isDev": true,
+  "isPc": true,
   "pathSrc": "src/",
   "pathBuild": "build/",
   "pathProject": "../work/zt",
-  "pathApp": "20170413xfns/",
+  "pathApp": "201705hd/",
   "pathTplpc": "tpl/html/pc/",
   "pathTplm": "tpl/html/m/",
   "pathImg": "C:/Users/roots/Desktop/images/",

@@ -300,7 +300,7 @@ module.exports = function(grunt) {
                     event: ['changed', 'added'],
                     livereload: 35888
                 },
-                files: ['<%=pathAppSrc%>less/*.css'],
+                files: ['<%=pathAppSrc%>/**/*.css'],
                 //tasks: ['newer:copy:lesscss']
             },
             less: {
@@ -308,7 +308,7 @@ module.exports = function(grunt) {
                     event: ['changed', 'added'],
                     livereload: 35888
                 },
-                files: ['<%=pathAppSrc%>**/*.less'],
+                files: ['<%=pathAppSrc%>/**/*.less'],
                 tasks: ['newer:less', 'newer:autoprefixer', 'newer:csscomb', 'newer:cssmin', 'concat:css']
             },
             js: {
@@ -321,7 +321,7 @@ module.exports = function(grunt) {
                 options: {
                     livereload: 35888
                 },
-                files: ['<%=pathAppSrc%>*.html']
+                files: ['<%=pathAppSrc%>/**/*.html']
             }
         }
     });
@@ -374,6 +374,6 @@ module.exports = function(grunt) {
     grunt.registerTask('css', ['concat:css', 'cssmin']);
     grunt.registerTask('jsmin', ['uglify:test']);
     grunt.registerTask('test', function() {
-        //console.log(grunt.config.get('copy.pc.dest'));
+        console.log(grunt.config.get('watch.less.files'));
     });
 };
